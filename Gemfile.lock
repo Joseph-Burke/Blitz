@@ -7,6 +7,7 @@ GEM
       multi_xml (>= 0.5.2)
     mini_mime (1.1.5)
     multi_xml (0.6.0)
+    open3 (0.2.1)
 
 PLATFORMS
   arm64-darwin-22
@@ -14,6 +15,7 @@ PLATFORMS
 DEPENDENCIES
   byebug (~> 11.1)
   httparty
+  open3 (~> 0.2.1)
 
 BUNDLED WITH
    2.4.4
