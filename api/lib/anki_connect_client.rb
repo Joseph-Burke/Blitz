@@ -1,40 +1,37 @@
 class AnkiConnectClient
   include HTTParty
+  attr_accessor :card
+
   base_uri 'http://localhost:8765/'
   
-  HEADERS = { 'Content-Type' => 'application/json' }
+  VERSION = 6
 
-  class << self
-    def create_card
-      post('', body: body, headers: HEADERS)
-    end
+  def initialize
+    @card |= Card.new
+  end
+
+  def post_card
+    post '', body: body('addNote'), headers: HEADERS
+  end
     
-    private
+  private
     
-    def body
-      {
-        "action": "addNote",
-        "version": 6,
-        "params": {
-          "note": {
-            "deckName": "German",
-            "modelName": "Basic",
-            "fields": {
-              "Front": "front content. Not a duplicate! #{Time.now}",
-              "Back": "back content"
-            },
-            "options": {
-              "allowDuplicate": false,
-              "duplicateScope": "deck",
-              "duplicateScopeOptions": {
-                "deckName": "Default",
-                "checkChildren": false,
-                "checkAllModels": false
-              }
-            }
-          }
+  def body action
+    {
+      "action": action,
+      "version": VERSION,
+      "params": {
+        "note": {
+          "deckName": @card.deck_name,
+          "modelName": @card.model_name,
+          "fields": @card.fields,
+          "options": @card.options
         }
-      }.to_json
-    end
+      }
+    }.to_json
+  end
+
+  def headers
+    { 'Content-Type' => 'application/json' }
   end
 end
