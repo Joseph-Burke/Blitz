@@ -1,25 +1,61 @@
 <script>
-  let cardType = '';
+  let cardType = "";
 
   let grammarCard = {
-    rule: '',
-    example: ''
-  }
-  
+    rule: "",
+    example: "",
+  };
+
   let pronunciationCard = {
-    type: '',
-    text: ''
-  }
+    type: "",
+    text: "",
+  };
 
   let vocabCard = {
-    type: '',
-    text: ''
-  }
+    type: "",
+    text: "",
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('Form submitted!', formData);
+    
+    const cardData = getCardData(cardType)
+    sendCardData(cardData);
   }
+
+  const getCardData = cardType => {
+    return {
+      cardType,
+      ...{
+        "Grammar": grammarCard,
+        "Pronunciation": pronunciationCard,
+        "Vocab": vocabCard,
+      }[cardType],
+    };
+  };
+
+  const sendCardData = cardData => {
+    console.log("sending card data!", cardData)
+    fetch("https://localhost:3000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cardData),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  };
 </script>
 
 <form on:submit={handleSubmit}>
@@ -31,7 +67,7 @@
     <option value="Vocab">Vocab</option>
   </select>
 
-  {#if cardType === 'Grammar'}
+  {#if cardType === "Grammar"}
     <label for="rule">
       Rule:
       <input bind:value={grammarCard.rule} />
@@ -41,8 +77,7 @@
       Example:
       <input bind:value={grammarCard.example} />
     </label>
-
-  {:else if cardType === 'Pronunciation'}
+  {:else if cardType === "Pronunciation"}
     <label for="pronunciationField">
       Type of text:
 
@@ -53,14 +88,13 @@
       </select>
     </label>
 
-      {#if pronunciationCard.type}
-        <label>
-          {pronunciationCard.type} text
-          <input bind:value={pronunciationCard.text} />
-        </label>
-      {/if}
-
-  {:else if cardType === 'Vocab'}
+    {#if pronunciationCard.type}
+      <label>
+        {pronunciationCard.type} text
+        <input bind:value={pronunciationCard.text} />
+      </label>
+    {/if}
+  {:else if cardType === "Vocab"}
     <label>
       Vocabulary type:
       <select bind:value={vocabCard.type}>
@@ -68,16 +102,14 @@
         <option value="Verb">Verb</option>
       </select>
     </label>
-    
+
     {#if vocabCard.type}
       <label>
         {vocabCard.type}:
-          <input bind:value={vocabCard.text} />
-        </label>
+        <input bind:value={vocabCard.text} />
+      </label>
     {/if}
   {/if}
 
-  <button type="submit">
-    Submit
-  </button>
+  <button type="submit"> Submit </button>
 </form>
