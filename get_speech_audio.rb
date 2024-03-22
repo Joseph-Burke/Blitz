@@ -18,5 +18,5 @@ def get_speech_audio text=''
     }
   )
   
-  File.binwrite("#{Time.now.to_i}audio.mp3", response)
+  File.binwrite("#{Time.now.to_i}.mp3", response)
 end
