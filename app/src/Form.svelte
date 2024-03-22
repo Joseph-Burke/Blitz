@@ -36,8 +36,9 @@
 
   const sendCardData = cardData => {
     console.log("sending card data!", cardData)
-    fetch("https://localhost:3000", {
+    fetch("http://localhost:3000/cards", {
       method: "POST",
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
