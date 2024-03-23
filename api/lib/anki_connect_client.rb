@@ -29,7 +29,9 @@ class AnkiConnectClient
           "deckName": @card.deck_name,
           "modelName": @card.template,
           "fields": @card.fields,
-          "options": @card.options
+          "options": @card.options,
+          "picture": @card.picture,
+          "audio": @card.audio
         }
       }
     }

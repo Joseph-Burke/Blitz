@@ -1,0 +1,26 @@
+---
+templates:
+- name: Grammar
+  fields:
+  - Rule
+  - Example
+  - Audio
+  - Image
+- name: Pronunciation
+  fields:
+  - IPA
+  - Audio
+- name: Vocab — Noun
+  fields:
+  - Noun
+  - Article
+  - IPA
+  - Definition
+  - Audio
+  - Image
+- name: Vocab — Verb
+  fields:
+  - Verb
+  - IPA
+  - Audio
+  - Definition
