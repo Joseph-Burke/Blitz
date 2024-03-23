@@ -18,31 +18,35 @@
 
   function handleSubmit(event) {
     event.preventDefault();
-    
-    const cardData = getCardData(cardType)
+
+    const cardData = getCardData(cardType);
+
     sendCardData(cardData);
   }
 
-  const getCardData = cardType => {
+  const getCardData = (cardType) => {
     return {
-      cardType,
-      ...{
-        "Grammar": grammarCard,
-        "Pronunciation": pronunciationCard,
-        "Vocab": vocabCard,
-      }[cardType],
+      card: {
+        cardType,
+        ...{
+          Grammar: grammarCard,
+          Pronunciation: pronunciationCard,
+          Vocab: vocabCard,
+        }[cardType],
+      },
     };
   };
 
-  const sendCardData = cardData => {
-    console.log("sending card data!", cardData)
+  const sendCardData = (cardData) => {
     fetch("http://localhost:3000/cards", {
       method: "POST",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
+
       },
-      body: JSON.stringify(cardData),
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(cardData)
     })
       .then(response => {
         if (!response.ok) {
@@ -50,10 +54,10 @@
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         console.log(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };

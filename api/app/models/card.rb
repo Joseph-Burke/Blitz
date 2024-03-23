@@ -1,10 +1,16 @@
 class Card
   include ActiveModel::Model
 
-  attr_accessor *%i(card_type fields model_name)
+  attr_accessor *%i(
+    card_type
+    card_template
+    fields
+  )
 
-  def initialize *args
-    @deck_name |= 'German'
+  def initialize card_params
+    @card_type = card_params[:card_type]
+    @card_template = card_params[:card_template]
+    @fields = card_params[:fields]
   end
 
   def options
