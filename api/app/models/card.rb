@@ -26,12 +26,11 @@ class Card
   end
 
   def template
-    card_template_name = {
-      'pronunciation' => 'Pronunciation (Phoneme)',
-      'grammar' => 'Grammar',
-      'noun' => 'Vocab (Noun)',
-      'verb' => 'Vocab (Verb)'
-    }[@type]
+    card_template_name =  case @type
+                          when 'pronunciation' then 'Pronunciation (Phoneme)'
+                          when 'grammar' then 'Grammar'
+                          when 'vocab' then "Vocab (#{@fields[:type]})"
+                          end
 
     "German — #{card_template_name}"
   end
