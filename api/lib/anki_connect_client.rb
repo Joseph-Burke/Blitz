@@ -15,7 +15,7 @@ class AnkiConnectClient
   end
 
   def post_card
-    post '', body: body('addNote'), headers: headers
+    post '', body: body('addNote').to_json, headers: headers
   end
 
   private
@@ -27,12 +27,12 @@ class AnkiConnectClient
       "params": {
         "note": {
           "deckName": @card.deck_name,
-          "modelName": @card.card_template,
+          "modelName": @card.template,
           "fields": @card.fields,
           "options": @card.options
         }
       }
-    }.to_json
+    }
   end
 
   def headers

@@ -14,11 +14,11 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.fetch(:card, {})
+    params.fetch(:card, {}).permit(:cardType, :type, :text, :rule, :example)
   end
 
   def set_card
-    @card = Card.new(card_params)
+    @card = Card.new(card_params.to_h)
   end
   
   def set_anki_client

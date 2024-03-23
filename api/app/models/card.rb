@@ -2,15 +2,14 @@ class Card
   include ActiveModel::Model
 
   attr_accessor *%i(
-    card_type
-    card_template
+    type
+    template
     fields
   )
 
   def initialize card_params
-    @card_type = card_params[:card_type]
-    @card_template = card_params[:card_template]
-    @fields = card_params[:fields]
+    @type = card_params[:cardType].downcase
+    @fields = card_params.except :cardType
   end
 
   def options
@@ -26,13 +25,15 @@ class Card
     }
   end
 
-  def card_template
-    {
-      'pronunciation' => 'Pronunciation',
+  def template
+    card_template_name = {
+      'pronunciation' => 'Pronunciation (Phoneme)',
       'grammar' => 'Grammar',
       'noun' => 'Vocabulary — Noun',
       'verb' => 'Vocabulary — Verb'
-    }[@card_type]
+    }[@type]
+
+    "German — #{card_template_name}"
   end
 
   def deck_name
