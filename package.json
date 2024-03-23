@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run start:app\" \"npm run start:api\"",
+    "start:app": "cd app && yarn dev",
+    "start:api": "cd api && bundle exec rails s"
+  },
+  "name": "blitz",
+  "version": "1.0.0",
+  "description": "An app for improving the process of flashcard creation for language learning",
+  "main": "index.js",
+  "repository": "git@github.com:Joseph-Burke/Blitz.git",
+  "author": "Joe Burke <joseph_burke@outlook.com>",
+  "license": "MIT",
+  "private": false
+}
