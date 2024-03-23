@@ -7,9 +7,9 @@ class Card
     fields
   )
 
-  def initialize card_params
-    @type = card_params[:cardType].downcase
-    @fields = card_params.except :cardType
+  def initialize params
+    @type = params[:cardType].downcase
+    @fields = params.except :cardType
   end
 
   def options
@@ -29,8 +29,8 @@ class Card
     card_template_name = {
       'pronunciation' => 'Pronunciation (Phoneme)',
       'grammar' => 'Grammar',
-      'noun' => 'Vocabulary — Noun',
-      'verb' => 'Vocabulary — Verb'
+      'noun' => 'Vocab (Noun)',
+      'verb' => 'Vocab (Verb)'
     }[@type]
 
     "German — #{card_template_name}"
