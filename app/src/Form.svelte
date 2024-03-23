@@ -42,7 +42,6 @@
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-
       },
       cache: "no-cache",
       credentials: "same-origin",
