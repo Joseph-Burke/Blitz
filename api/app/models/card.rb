@@ -1,7 +1,7 @@
 class Card
   include ActiveModel::Model
 
-  attr_accessor :template
+  attr_accessor :template, :fields
   delegate :fields, to: :template, prefix: true
 
   def initialize(template:, parameters:)

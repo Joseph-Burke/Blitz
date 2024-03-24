@@ -27,7 +27,6 @@
   const getCardData = (cardType) => {
     return {
       card: {
-        cardType,
         ...{
           Grammar: grammarCard,
           Pronunciation: pronunciationCard,
@@ -38,7 +37,7 @@
   };
 
   const sendCardData = (cardData) => {
-    fetch("http://localhost:3000/cards", {
+    fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,18 +59,21 @@
         console.error("Error fetching data:", error);
       });
   };
+
+  $: url = `http://localhost:3000/cards/${cardType}`;
 </script>
 
 <form on:submit={handleSubmit}>
   <label for="cardType">Card Type:</label>
   <select id="cardType" bind:value={cardType}>
     <option value="">Select Card Type</option>
-    <option value="Grammar">Grammar</option>
-    <option value="Pronunciation">Pronunciation</option>
-    <option value="Vocab">Vocab</option>
+    <option value="grammar">Grammar</option>
+    <option value="pronunciation">Pronunciation</option>
+    <option value="vocab/noun">Vocab (Noun)</option>
+    <option value="vocab/verb">Vocab (Verb)</option>
   </select>
 
-  {#if cardType === "Grammar"}
+  {#if cardType === "grammar"}
     <label for="rule">
       Rule:
       <input bind:value={grammarCard.rule} />
@@ -81,7 +83,7 @@
       Example:
       <input bind:value={grammarCard.example} />
     </label>
-  {:else if cardType === "Pronunciation"}
+  {:else if cardType === "pronunciation"}
     <label for="pronunciationField">
       Type of text:
 
@@ -98,21 +100,10 @@
         <input bind:value={pronunciationCard.text} />
       </label>
     {/if}
-  {:else if cardType === "Vocab"}
+  {:else if cardType === "vocab/noun" || cardType === "vocab/verb"}
     <label>
-      Vocabulary type:
-      <select bind:value={vocabCard.type}>
-        <option value="Noun" selected>Noun</option>
-        <option value="Verb">Verb</option>
-      </select>
+      <input bind:value={vocabCard.text} />
     </label>
-
-    {#if vocabCard.type}
-      <label>
-        {vocabCard.type}:
-        <input bind:value={vocabCard.text} />
-      </label>
-    {/if}
   {/if}
 
   <button type="submit"> Submit </button>

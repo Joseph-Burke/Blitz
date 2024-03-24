@@ -1,13 +1,14 @@
 require 'yaml'
 
-class Card::Template
-  TEMPLATE_FILE = "data/templates.yml"
-  attr_accessor :fields
+class Card
+  class Template
+    TEMPLATE_FILE = "app/models/card/data/card_templates.yml"
 
-  class Card::Template
-    def initialize(template_name)
-      templates = YAML.load_file(TEMPLATE_FILE)
-      @fields = templates[template_name]
+    attr_accessor :fields, :name
+
+    def initialize(name)
+      @name = name
+      @fields = YAML.load_file(TEMPLATE_FILE)[@name]
     end
   end
 end

@@ -1,4 +1,4 @@
-module Card
+class Card
   class Fields
     def initialize(template:, parameters:)
       @template = template

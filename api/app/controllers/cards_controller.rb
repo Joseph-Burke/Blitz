@@ -18,10 +18,17 @@ class CardsController < ApplicationController
   end
 
   def set_card
-    @card = Card.new(card_params.to_h)
+    @card = Card.new(
+      template: card_type,
+      parameters: card_params.to_h
+    )
   end
   
   def set_anki_client
     @anki_client = AnkiConnectClient.new(card: @card)
+  end
+
+  def card_type
+    params[:card_type]
   end
 end

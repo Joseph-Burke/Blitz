@@ -27,7 +27,7 @@ class AnkiConnectClient
       "params": {
         "note": {
           "deckName": @card.deck_name,
-          "modelName": @card.template,
+          "modelName": @card.template.name,
           "fields": @card.fields,
           "options": @card.options,
           "picture": @card.picture,
