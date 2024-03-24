@@ -28,9 +28,10 @@
     return {
       card: {
         ...{
-          Grammar: grammarCard,
-          Pronunciation: pronunciationCard,
-          Vocab: vocabCard,
+          "grammar": grammarCard,
+          "pronunciation": pronunciationCard,
+          "vocab/noun": vocabCard,
+          "vocab/verb": vocabCard
         }[cardType],
       },
     };
