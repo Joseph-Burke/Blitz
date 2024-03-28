@@ -1,16 +1,19 @@
 ---
 templates:
-- name: Grammar
+- id: grammar
+  name: Grammar
   fields:
   - Rule
   - Example
   - Audio
   - Image
-- name: Pronunciation
+- id: pronunciation
+  name: Pronunciation (Phoneme)
   fields:
   - IPA
   - Audio
-- name: Vocab — Noun
+- id: vocab/noun
+  name: Vocab (Noun)
   fields:
   - Noun
   - Article
@@ -18,7 +21,8 @@ templates:
   - Definition
   - Audio
   - Image
-- name: Vocab — Verb
+- id: vocab/verb
+  name: Vocab (Verb)
   fields:
   - Verb
   - IPA

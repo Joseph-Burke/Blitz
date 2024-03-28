@@ -4,11 +4,17 @@ class Card
   class Template
     TEMPLATE_FILE = "app/models/card/data/card_templates.yml"
 
-    attr_accessor :fields, :name
+    def initialize(id)
+      templates = YAML.load_file(TEMPLATE_FILE)['templates']
+      @data = templates.find { |template| template["id"] == id }
+    end
 
-    def initialize(name)
-      @name = name
-      @fields = YAML.load_file(TEMPLATE_FILE)[@name]
+    def name
+      "German — #{@data["name"]}"
+    end
+    
+    def fields
+      @data["fields"]
     end
   end
 end
