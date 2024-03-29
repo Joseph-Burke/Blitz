@@ -8,7 +8,9 @@ class CardsController < ApplicationController
     # One piece of functionality that gets an image
     # One piece of functionality that gets an audio recording
     # One piece of functionality that gets an ipa transcription
-    @anki_client.post_card
+    result = @anki_client.post_card
+
+    render json: { result: result }, status: result ? :created : :unprocessable_entity
   end
 
   private
