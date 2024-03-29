@@ -14,6 +14,7 @@ class AnkiConnectClient
   #
   # @param card [Card] The card object to be posted to Anki
   def initialize(card:)
+    @card = card
     @data = DataService.new(card).convert_to_anki_data
   end
 
@@ -21,7 +22,7 @@ class AnkiConnectClient
   #
   # @return [Hash] The response from the API
   def post_card
-    response = post '', body: body('addNote').to_json, headers: headers
+    response = post '', body: body.to_json, headers: headers
 
     response['result'] || debugger
   end
@@ -32,10 +33,10 @@ class AnkiConnectClient
   #
   # @param action [String] The action to be performed
   # @return [Hash] The request body
-  def body(action)
+  def body
     {
-      "action": action,
-      "version": VERSION,
+      "action": 'addNote',
+      "version": 6,
       "params": {
         "note": {
             "deckName": @data[:deck_name],
@@ -43,9 +44,10 @@ class AnkiConnectClient
             "fields": @data[:fields],
             "options": @data[:options],
             "picture": @data[:picture],
-            "audio": @data[:audio]
+            "audio": @data[:audio],
+            "tags": []
         }
-      }
+      },
     }
   end
 

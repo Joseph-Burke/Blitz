@@ -7,9 +7,6 @@ class Card
   def initialize(template:, parameters:)
     @template = Template.new(template)
     @fields = Fields.new(template: @template, parameters: parameters)
-
-    # fill unfilled fields
-    # @fields.unfilled_fields
   end
 
   def options

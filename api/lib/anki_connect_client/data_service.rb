@@ -1,4 +1,4 @@
-module AnkiConnectClient
+class AnkiConnectClient
   class DataService
     # This class is responsible for converting a Card into the data required by the AnkiConnect API.
 
@@ -7,7 +7,7 @@ module AnkiConnectClient
     end
 
     def convert_to_anki_data
-      # Convert the card into the data required by the AnkiConnect API
+      # Convert the card into the format required by the AnkiConnect API
       {
         deck_name: deck_name,
         model_name: model_name,
@@ -32,12 +32,7 @@ module AnkiConnectClient
 
     def fields
       # Retrieve the fields for the card
-      raise ArgumentError, "fields must be a Card::Fields" unless fields.is_a?(Card::Fields)
-
-      {
-        "Front": "front content. Not a duplicate! #{Time.now}",
-        "Back": "back content"
-      }
+      @card.fields.to_hash
     end
 
     def options
