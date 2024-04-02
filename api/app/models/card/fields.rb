@@ -7,8 +7,16 @@ class Card
       @parameters = parameters
     end
 
+    def image_generation_text
+      to_hash[@template.image_generation_field]
+    end
+
     def unfilled_fields
       @template.fields - @parameters.keys
+    end
+
+    def permitted_fields
+      @template.fields
     end
 
     # Returns the fields that are both valid (present in the template) and filled

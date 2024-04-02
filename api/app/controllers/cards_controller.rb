@@ -16,7 +16,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.fetch(:card, {}).permit(:cardType, :type, :text, :rule, :example)
+    params.fetch(:card, {}).permit(:cardType, :type, :text, :rule, :example, :verb, :noun, :pronunciation, :ipa, :audio, :image, :tags)
   end
 
   def set_card

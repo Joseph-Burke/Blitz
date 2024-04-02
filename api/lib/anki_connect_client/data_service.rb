@@ -51,11 +51,11 @@ class AnkiConnectClient
     def picture
       # Retrieve the picture for the card
       [{
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/A_black_cat_named_Tilly.jpg/220px-A_black_cat_named_Tilly.jpg",
-        "filename": "black_cat.jpg",
+        "url": @card.image_url,
+        "filename": "#{Time.now.to_i}.jpg",
         "skipHash": "8d6e4646dfae812bf39651b59d7429ce",
         "fields": [
-          "Back"
+          "Image"
         ]
       }]
     end
@@ -67,7 +67,7 @@ class AnkiConnectClient
         "filename": "yomichan_ねこ_猫.mp3",
         "skipHash": "7e2c2f954ef6051373ba916f000168dc",
         "fields": [
-          "Front"
+          "Audio"
         ]
       }]
     end

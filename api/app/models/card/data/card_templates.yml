@@ -12,7 +12,7 @@ templates:
   fields:
   - IPA
   - Audio
-- id: vocab/noun
+- id: vocab_noun
   name: Vocab (Noun)
   fields:
   - Noun
@@ -21,7 +21,7 @@ templates:
   - Definition
   - Audio
   - Image
-- id: vocab/verb
+- id: vocab_verb
   name: Vocab (Verb)
   fields:
   - Verb

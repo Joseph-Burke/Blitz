@@ -6,6 +6,8 @@ class OpenAiClient
 
   # Takes text and returns a generated image URL
   def get_image_url(text)
+    raise ArgumentError, "Text parameter is required" if text.blank?
+
     response = @client.images.generate(
       parameters: {
         prompt: text,

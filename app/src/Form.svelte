@@ -11,10 +11,13 @@
     text: "",
   };
 
-  let vocabCard = {
-    type: "",
-    text: "",
-  };
+  let vocabCard = {};
+
+  let lastCard = null;
+
+  $: {
+    console.log(lastCard);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,16 +31,17 @@
     return {
       card: {
         ...{
-          "grammar": grammarCard,
-          "pronunciation": pronunciationCard,
+          grammar: grammarCard,
+          pronunciation: pronunciationCard,
           "vocab/noun": vocabCard,
-          "vocab/verb": vocabCard
+          "vocab/verb": vocabCard,
         }[cardType],
       },
     };
   };
 
   const sendCardData = (cardData) => {
+    console.log(cardData);
     fetch(url, {
       method: "POST",
       headers: {
@@ -45,16 +49,14 @@
       },
       cache: "no-cache",
       credentials: "same-origin",
-      body: JSON.stringify(cardData)
+      body: JSON.stringify(cardData),
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+      .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log(data);
+        lastCard = data;
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -69,7 +71,6 @@
   <select id="cardType" bind:value={cardType}>
     <option value="">Select Card Type</option>
     <option value="grammar">Grammar</option>
-    <option value="pronunciation">Pronunciation</option>
     <option value="vocab/noun">Vocab (Noun)</option>
     <option value="vocab/verb">Vocab (Verb)</option>
   </select>
@@ -84,28 +85,23 @@
       Example:
       <input bind:value={grammarCard.example} />
     </label>
-  {:else if cardType === "pronunciation"}
-    <label for="pronunciationField">
-      Type of text:
-
-      <select bind:value={pronunciationCard.type}>
-        <option value="">Select Type</option>
-        <option value="IPA">International Phonetic Alphabet</option>
-        <option value="German">German</option>
-      </select>
-    </label>
-
-    {#if pronunciationCard.type}
-      <label>
-        {pronunciationCard.type} text
-        <input bind:value={pronunciationCard.text} />
-      </label>
-    {/if}
-  {:else if cardType === "vocab/noun" || cardType === "vocab/verb"}
+  {:else if cardType === "vocab/noun"}
     <label>
-      <input bind:value={vocabCard.text} />
+      <input bind:value={vocabCard.noun} />
+    </label>
+  {:else if cardType === "vocab/verb"}
+    <label>
+      <input bind:value={vocabCard.verb} />
     </label>
   {/if}
 
   <button type="submit"> Submit </button>
+
+  {#if lastCard !== null}
+    {#if lastCard.result !== null}
+      <p>Last card was created successfully.</p>
+    {:else}
+      <p>Last card creation failed.</p>
+    {/if}
+  {/if}
 </form>
